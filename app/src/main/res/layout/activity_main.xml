@@ -27,78 +27,6 @@
         android:layout_centerInParent="true"
         android:background="@color/transparent" />
 
-    <!-- 최초 로그인 -->
-    <RelativeLayout
-        android:id="@+id/text_whole_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/empty_layout"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="50dp"
-            android:layout_marginRight="50dp"
-            android:orientation="vertical">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="@drawable/edit_box"
-                android:hint="email"
-                android:paddingLeft="10dp" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/edit_box"
-                android:hint="password"
-                android:paddingLeft="10dp" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Login" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:text="Sign In" />
-            </RelativeLayout>
-        </LinearLayout>
-
-        <ImageView
-            android:id="@+id/right_arrow_img"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginRight="5dp"
-            android:src="@drawable/arrow"
-            android:layout_alignParentRight="true"
-            />
-
-    </RelativeLayout>
-
     <!-- sns 로그인 -->
     <RelativeLayout
         android:id="@+id/sns_login_whole_layout"
@@ -150,6 +78,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/kakao_login_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -163,7 +92,18 @@
                     android:layout_marginTop="10dp"
                     android:text="Kakao Login"
                     android:textColor="#ffffff" />
+
+                <com.kakao.usermgmt.LoginButton
+                    android:id="@+id/btnKakaoLogin"
+                    android:layout_centerVertical="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:visibility="gone"
+                    />
+
             </RelativeLayout>
+
+
 
 
             <TextView
@@ -175,14 +115,6 @@
                 android:text="이메일로 로그인 하기" />
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/left_arrow_img"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_marginLeft="5dp"
-            android:src="@drawable/arrow_left"
-            android:layout_alignParentLeft="true"
-            />
     </RelativeLayout>
 
 </RelativeLayout>
