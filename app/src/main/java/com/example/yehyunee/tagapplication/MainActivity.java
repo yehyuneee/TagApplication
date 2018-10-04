@@ -184,6 +184,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                 parameters.putString("fields", "id,name,email,gender,birthday");
                 request.setParameters(parameters);
                 request.executeAsync();
+
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.ani_slide_in_right, R.anim.ani_slide_out_left);
             }
 
             @Override
@@ -224,6 +228,11 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             Toast.makeText(MainActivity.this, "구글 로그인 성공", Toast.LENGTH_SHORT).show();
             GoogleSignInAccount acct = result.getSignInAccount();
 //            mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
+
+            Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            startActivity(intent);
+            overridePendingTransition(R.anim.ani_slide_in_right, R.anim.ani_slide_out_left);
+
         } else {
             Toast.makeText(MainActivity.this, "구글 로그인 실패", Toast.LENGTH_SHORT).show();
             // Signed out, show unauthenticated UI.
@@ -252,6 +261,10 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
             @Override
             public void onSuccess(UserProfile result) {
                 Toast.makeText(MainActivity.this, "카카오로그인 성공" , Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.ani_slide_in_right, R.anim.ani_slide_out_left);
             }
         });
     }

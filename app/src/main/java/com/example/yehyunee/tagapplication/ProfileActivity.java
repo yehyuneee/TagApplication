@@ -270,7 +270,9 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
                     Toast.makeText(ProfileActivity.this, "태그네임을 설정해주세요.", Toast.LENGTH_SHORT).show();
                 }else{
                     PreshareUtil.getInstance().setStringPref(mContext,"tagName", mTagName.getText().toString());
-                    Toast.makeText(ProfileActivity.this, "시작~~", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(ProfileActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.ani_slide_in_left, R.anim.ani_slide_out_right);
                 }
                 break;
         }
@@ -279,7 +281,7 @@ public class ProfileActivity extends Activity implements View.OnClickListener {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+        Intent intent = new Intent(ProfileActivity.this, EmailInitLoginActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.ani_slide_in_left, R.anim.ani_slide_out_right);
     }

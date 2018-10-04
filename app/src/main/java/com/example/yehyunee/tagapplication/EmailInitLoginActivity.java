@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class EmailInitLoginActivity extends Activity implements View.OnClickListener {
 
@@ -79,6 +80,13 @@ public class EmailInitLoginActivity extends Activity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // 유효한 이메일
+//                            FirebaseUser user = firebaseAuth.getCurrentUser();
+//                            if(user.isEmailVerified()){
+//                                Toast.makeText(EmailInitLoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+//                            }else{
+//                                Toast.makeText(EmailInitLoginActivity.this, "이메일 인증해주세요.", Toast.LENGTH_SHORT).show();
+//                                user.sendEmailVerification();
+//                            }
                             Toast.makeText(EmailInitLoginActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
                         } else {
                             // 유효하지 않은 이메일
@@ -105,7 +113,7 @@ public class EmailInitLoginActivity extends Activity implements View.OnClickList
                 break;
             case R.id.main_email_sign_out:
                 // 가입하기
-                Intent intentTwo = new Intent(EmailInitLoginActivity.this, EmailLoginActivity.class);
+                Intent intentTwo = new Intent(EmailInitLoginActivity.this, EmailSignOutActivity.class);
                 startActivity(intentTwo);
                 overridePendingTransition(R.anim.ani_slide_in_right, R.anim.ani_slide_out_left);
                 break;

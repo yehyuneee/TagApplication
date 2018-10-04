@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.EditText;
@@ -15,9 +16,11 @@ import android.widget.Toast;
 import com.example.yehyunee.tagapplication.util.CommandUtil;
 import com.example.yehyunee.tagapplication.util.PreshareUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class EmailSignOutActivity extends Activity implements View.OnClickListener {
 
@@ -35,6 +38,7 @@ public class EmailSignOutActivity extends Activity implements View.OnClickListen
 
     // 파이어베이스 인증 객체 생성
     private FirebaseAuth firebaseAuth;
+    private FirebaseUser user;
 
     private Context mContext;
 
@@ -47,6 +51,7 @@ public class EmailSignOutActivity extends Activity implements View.OnClickListen
 
         // 파이어베이스 인증 객체 선언
         firebaseAuth = FirebaseAuth.getInstance();
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         mEmailText = (EditText) findViewById(R.id.email_edit_text);
         mNameText = (EditText) findViewById(R.id.name_edit_text);
@@ -85,30 +90,45 @@ public class EmailSignOutActivity extends Activity implements View.OnClickListen
         password = mPasswordText.getText().toString();
 
         if (CommandUtil.isValidEmail(mContext, email) && CommandUtil.isValidPasswd(mContext, password)) {
-            createUser(email, password);
+            createUser(password);
         }
     }
 
     /**
      * 이메일 가입하기 (파이어베이스 연동)
      */
-    private void createUser(String email, String password) {
+    private void createUser(String password) {
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            // 회원가입 성공
-                            Toast.makeText(EmailSignOutActivity.this, "이메일 가입 성공", Toast.LENGTH_SHORT).show();
+                            // 유효하지 않은 이메일
+                            // 이메일인증 UI 나오면 추가 작업 예정!
+//                            FirebaseUser user = firebaseAuth.getCurrentUser();
+//                            if(user.isEmailVerified()){
+//                                Toast.makeText(EmailSignOutActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+//                            }else{
+//                                Toast.makeText(EmailSignOutActivity.this, "이메일 인증해주세요.", Toast.LENGTH_SHORT).show();
+//                                user.sendEmailVerification();
+//                            }
+                            Toast.makeText(EmailSignOutActivity.this, "가입 성공", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(EmailSignOutActivity.this, ProfileActivity.class);
+                            intent.putExtra("email", email);
                             startActivity(intent);
                             overridePendingTransition(R.anim.ani_slide_in_right, R.anim.ani_slide_out_left);
                         } else {
-                            // 회원가입 실패
-                            Toast.makeText(EmailSignOutActivity.this, "이미 존재하는 이메일입니다.", Toast.LENGTH_SHORT).show();
+                            // 유효한 이메일
+                            Toast.makeText(EmailSignOutActivity.this, "이미 가입된 이메일입니다.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
+        firebaseAuth.signInWithEmailAndPassword(email, password).addOnFailureListener(this, new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("firebase fail" , e.getMessage());
+            }
+        });
     }
 
 
